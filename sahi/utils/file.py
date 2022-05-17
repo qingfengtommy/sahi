@@ -27,7 +27,7 @@ def unzip(file_path: str, dest_dir: str):
         zf.extractall(dest_dir)
 
 
-def save_json(data, save_path, encoding:str = 'utf-8'):
+def save_json(data, save_path):
     """
     Saves json formatted data (given as "data") as save_path
     Example inputs:
@@ -38,7 +38,7 @@ def save_json(data, save_path, encoding:str = 'utf-8'):
     Path(save_path).parent.mkdir(parents=True, exist_ok=True)
 
     # export as json
-    with open(save_path, "w", encoding=encoding) as outfile:
+    with open(save_path, "w") as outfile:
         json.dump(data, outfile, separators=(",", ":"), cls=NumpyEncoder)
 
 
@@ -55,9 +55,12 @@ class NumpyEncoder(json.JSONEncoder):
             return super(NumpyEncoder, self).default(obj)
 
 
-def load_json(load_path:str, encoding:str = 'utf-8'):
+def load_json(load_path: str):
+    encoding = "utf-8"
     """
     Loads json formatted data (given as "data") from load_path
+    Encoding type can be specified with 'encoding' argument
+    
     Example inputs:
         load_path: "dirname/coco.json"
     """
@@ -102,7 +105,8 @@ def list_files(
     number_of_files = len(filepath_list)
     folder_name = Path(directory).name
 
-    verboseprint(f"There are {str(number_of_files)} listed files in folder: {folder_name}/")
+    verboseprint(
+        f"There are {str(number_of_files)} listed files in folder: {folder_name}/")
 
     return filepath_list
 
@@ -147,7 +151,8 @@ def list_files_recursively(directory: str, contains: list = [".json"], verbose: 
     number_of_files = len(relative_filepath_list)
     folder_name = directory.split(os.sep)[-1]
 
-    verboseprint("There are {} listed files in folder {}.".format(number_of_files, folder_name))
+    verboseprint("There are {} listed files in folder {}.".format(
+        number_of_files, folder_name))
 
     return relative_filepath_list, abs_filepath_list
 
@@ -157,7 +162,8 @@ def get_base_filename(path: str):
     Takes a file path, returns (base_filename_with_extension, base_filename_without_extension)
     """
     base_filename_with_extension = ntpath.basename(path)
-    base_filename_without_extension, _ = os.path.splitext(base_filename_with_extension)
+    base_filename_without_extension, _ = os.path.splitext(
+        base_filename_with_extension)
     return base_filename_with_extension, base_filename_without_extension
 
 
@@ -169,7 +175,7 @@ def get_file_extension(path: str):
 def load_pickle(load_path):
     """
     Loads pickle formatted data (given as "data") from load_path
-    Example inputs:
+    Example inpts:
         load_path: "dirname/coco.pickle"
     """
     # read from path
