@@ -27,7 +27,7 @@ def unzip(file_path: str, dest_dir: str):
         zf.extractall(dest_dir)
 
 
-def save_json(data, save_path):
+def save_json(data, save_path, encoding:str = 'utf-8'):
     """
     Saves json formatted data (given as "data") as save_path
     Example inputs:
@@ -38,7 +38,7 @@ def save_json(data, save_path):
     Path(save_path).parent.mkdir(parents=True, exist_ok=True)
 
     # export as json
-    with open(save_path, "w", encoding="utf-8") as outfile:
+    with open(save_path, "w", encoding=encoding) as outfile:
         json.dump(data, outfile, separators=(",", ":"), cls=NumpyEncoder)
 
 
@@ -55,14 +55,14 @@ class NumpyEncoder(json.JSONEncoder):
             return super(NumpyEncoder, self).default(obj)
 
 
-def load_json(load_path):
+def load_json(load_path:str, encoding:str = 'utf-8'):
     """
     Loads json formatted data (given as "data") from load_path
     Example inputs:
         load_path: "dirname/coco.json"
     """
     # read from path
-    with open(load_path) as json_file:
+    with open(load_path, encoding=encoding) as json_file:
         data = json.load(json_file)
     return data
 
