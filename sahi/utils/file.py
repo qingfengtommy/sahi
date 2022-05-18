@@ -34,7 +34,6 @@ def save_json(data, save_path):
         data: {"image_id": 5}
         save_path: "dirname/coco.json"
     """
-    encoding = 'utf-8'
     # create dir if not present
     Path(save_path).parent.mkdir(parents=True, exist_ok=True)
 
@@ -57,7 +56,6 @@ class NumpyEncoder(json.JSONEncoder):
 
 
 def load_json(load_path: str):
-    encoding = "utf-8"
     """
     Loads json formatted data (given as "data") from load_path
     Encoding type can be specified with 'encoding' argument
