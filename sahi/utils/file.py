@@ -34,11 +34,12 @@ def save_json(data, save_path):
         data: {"image_id": 5}
         save_path: "dirname/coco.json"
     """
+    encoding = 'utf-8'
     # create dir if not present
     Path(save_path).parent.mkdir(parents=True, exist_ok=True)
 
     # export as json
-    with open(save_path, "w") as outfile:
+    with open(save_path, "w", encoding=encoding) as outfile:
         json.dump(data, outfile, separators=(",", ":"), cls=NumpyEncoder)
 
 
